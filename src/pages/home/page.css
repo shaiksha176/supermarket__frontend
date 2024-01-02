@@ -1,0 +1,143 @@
+.carousel__container {
+  position: relative;
+  width: 90%;
+  height: 553px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  /* border: 2px solid blue; */
+}
+
+#carousel__image {
+  width: 50%;
+  position: absolute;
+  right: 0;
+  /* border: 1px solid black; */
+}
+
+#carousel__title {
+  color: #fe1a10;
+  text-align: left;
+  font-family: Rampart One;
+  font-size: 118px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 50%;
+  /* border: 1px solid red; */
+}
+
+#carousel__title span {
+  color: #4b8b11;
+}
+
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel__dot {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin: 0 10px;
+  background-color: #fe1a10;
+}
+
+.category__list {
+  margin-top: 20px;
+  /* border: 1px solid red; */
+}
+
+.category__names {
+  color: #000000bc;
+  /* text-align: center; */
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 20px 0;
+}
+
+#category__container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.category {
+  padding: 20px 30px;
+  /* border: 1px solid red; */
+}
+
+.category__list__image {
+  height: 120px;
+}
+
+.category__name {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+#offers_container {
+  margin: 20px 0;
+}
+
+.offe {
+  color: #000000bc;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 20px 0;
+}
+
+.offers {
+  display: flex;
+}
+
+.offer {
+  /* border: 1px solid blue; */
+  padding: 20px 20px;
+}
+
+.offer__product__image {
+  height: 120px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.offer__title {
+  text-align: center;
+  margin: 5px 0;
+  font-size: 16px;
+  color: #000000bc;
+}
+
+.offer__desc {
+  font-size: 12px;
+  color: #000000bc;
+}
+
+button {
+  color: #fff;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 150px;
+  background-color: var(--primary-color);
+  border: none;
+  padding: 5px 0;
+  border-radius: 4px;
+  display: block;
+  margin: 10px auto;
+}

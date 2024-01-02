@@ -1,0 +1,117 @@
+.cart__container {
+  width: 60%;
+  margin: 50px auto;
+  overflow-x: auto;
+}
+
+.cart__image {
+  width: 80px;
+}
+
+.cart__item {
+  display: flex;
+  align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: "Poppins";
+}
+
+th,
+td {
+  /* border: 1px solid #ddd; */
+  border: 1px solid rgba(0, 0, 0, 0.52);
+  text-align: left;
+  height: 60px;
+  vertical-align: center;
+  padding: 10px;
+}
+
+/* Remove vertical borders for td and th */
+td,
+th {
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  text-align: center;
+}
+
+/* Optional: Style for the table header */
+th {
+  /* background-color: #f2f2f2; */
+  text-align: center;
+}
+
+.cart__list {
+  width: 100%;
+  border-collapse: collapse;
+}
+tbody td {
+  color: rgba(0, 0, 0, 0.52);
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.last__item {
+  text-align: center;
+}
+
+/* .cart__update__container {
+  margin: 20px 0;
+} */
+
+#cart__update__container {
+  /* border: 1px solid red; */
+  margin: 20px 0;
+  float: right;
+}
+
+#cart__update__container table {
+  border-collapse: collapse;
+  width: 300px;
+}
+
+#cart__update__container td,
+#cart__update__container th {
+  border-bottom: none;
+  padding: 0;
+  height: 40px;
+}
+.place__order__btn {
+  width: 130px;
+  color: #fff;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  background-color: var(--primary-color);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin-top: 20px;
+  float: right;
+}
+
+.inc__dec__btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.52);
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  margin: 0 20px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

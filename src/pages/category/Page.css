@@ -1,0 +1,78 @@
+.banner {
+  width: 90%;
+  margin: 30px auto;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(217, 217, 217, 42%);
+}
+.category__image {
+  width: 600px;
+}
+
+.title {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 53px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.subtitle {
+  color: #000;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.offers {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+}
+
+.offer {
+  /* border: 1px solid blue; */
+  padding: 20px 20px;
+}
+
+.offer__product__image {
+  height: 120px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.offer__title {
+  text-align: center;
+  margin: 5px 0;
+  font-size: 16px;
+  color: #000000bc;
+}
+
+.offer__desc {
+  font-size: 12px;
+  color: #000000bc;
+}
+
+button {
+  color: #fff;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 150px;
+  background-color: var(--primary-color);
+  border: none;
+  padding: 5px 0;
+  border-radius: 4px;
+  display: block;
+  margin: 10px auto;
+}

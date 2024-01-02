@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Home from "./pages/home/page";
+import Navbar from "./components/navbar/Navbar";
+import Category from "./pages/category/Page";
+import Cart from "./pages/cart/Page";
+import Login from "./pages/login/Page";
+import Orders from "./pages/orders/Page";
+import { Routes, Route } from "react-router-dom";
+import Client from "./layout/Client";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route element={<Client />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;

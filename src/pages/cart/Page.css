@@ -4,6 +4,13 @@
   overflow-x: auto;
 }
 
+.empty__cart__container {
+  width: 60%;
+  margin: 50px auto;
+  overflow-x: auto;
+  background-color: rgb(43, 226, 223);
+}
+
 .cart__image {
   width: 80px;
 }
@@ -108,10 +115,17 @@ tbody td {
   place-items: center;
   font-size: 18px;
   margin: 0 20px;
+  cursor: pointer;
 }
 
 .qty {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.empty__cart__image {
+  display: block;
+  width: 150px;
+  margin: 0 auto;
 }

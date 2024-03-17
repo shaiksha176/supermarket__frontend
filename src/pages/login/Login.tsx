@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import {
   register as authRegister,
   reset,
+  login,
+  User,
 } from "../../redux/features/auth/authSlice";
-
 type FormData = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -20,23 +21,36 @@ const Login: React.FC = () => {
     getValues,
     formState: { errors },
   } = useForm<FormData>();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, message, user } = useSelector(
+  const { isError, isLoading, isSuccess, message } = useSelector(
     (state: any) => state.auth,
   );
+  console.table({ isError, isLoading, isSuccess, message });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const { isLoading, isError, isSuccess, message, user } = useSelector(
+  //   (state: any) => state.auth,
+  // );
   const onSubmit = (data: FormData) => {
     console.log("Submitted Data:", data);
     console.log("Form Errors:", errors);
-    dispatch(authRegister(data) as any);
+    dispatch(login(data) as any);
   };
 
   useEffect(() => {
-    if (isSuccess || user) {
+    if (isSuccess) {
+      navigate("/cart");
+    }
+    // dispatch(reset());
+  }, [isSuccess, dispatch]);
+
+  // Check for the presence of the token
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // If token exists, redirect to the home page
       navigate("/");
     }
-    dispatch(reset());
-  }, [isLoading, isError, isSuccess, user, dispatch]);
+  }, [navigate]);
 
   // if (isLoading) return <p>Logging iN...</p>;
 
@@ -47,17 +61,17 @@ const Login: React.FC = () => {
           <h1>Log In / Sign Up</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label>Username</label>
+              <label>Email</label>
               <input
-                {...register("username", {
-                  required: "Username is required",
+                {...register("email", {
+                  required: "email is required",
                   minLength: {
                     value: 6,
                     message: "Username must be at least 6 characters",
                   },
                 })}
               />
-              {errors.username && <small>{errors.username.message}</small>}
+              {errors.email && <small>{errors.email.message}</small>}
             </div>
             <div>
               <label>Password</label>
@@ -65,16 +79,16 @@ const Login: React.FC = () => {
                 type="password"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-                    message:
-                      "Password must include one upper case letter, one number, and one special character",
-                  },
+                  // minLength: {
+                  //   value: 6,
+                  //   message: "Password must be at least 6 characters",
+                  // },
+                  // pattern: {
+                  //   value:
+                  //     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+                  //   message:
+                  //     "Password must include one upper case letter, one number, and one special character",
+                  // },
                 })}
               />
               {errors.password && <small>{errors.password.message}</small>}
@@ -87,9 +101,9 @@ const Login: React.FC = () => {
           </form>
           <p>OR</p>
           <button className="google__btn">Sign In with Google</button>
-          <div>{isError && <p>Login Failed</p>}</div>
-          <div>{isSuccess && <p>Login successfull</p>}</div>
-          <div>{isLoading && <p>Logggig in</p>}</div>
+          <div>{isError && <p>{message}</p>}</div>
+          {/* <div>{isSuccess && <p>Login successfull</p>}</div> */}
+          {/* <div>{isLoading && <p>Logggig in</p>}</div> */}
         </div>
       </div>
       <div className="login__banner">

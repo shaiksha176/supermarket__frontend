@@ -1,5 +1,7 @@
 import React from "react";
 import "./page.css";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/features/cart/cartSlice";
 
 type Category = {
   category: string;
@@ -10,9 +12,9 @@ type Offer = {
   url: string;
   title: string;
   description: string;
-  cost: string;
+  cost: number;
+  id: number | string;
 };
-
 const Home: React.FC = () => {
   const categoryList: Category[] = [
     {
@@ -38,16 +40,22 @@ const Home: React.FC = () => {
       url: require("../../images/lays.png"),
       title: "Lay's",
       description: "Original Lays Potato Chip, 150g",
-      cost: "$3.99",
+      cost: 3.99,
+      id: 1,
     },
     {
       url: require("../../images/lays.png"),
       title: "Lay's",
       description: "Original Lays Potato Chip, 150g",
-      cost: "$3.99",
+      cost: 3.99,
+      id: 2,
     },
   ];
 
+  const dispatch = useDispatch();
+  const handleAddtoCart = (item: any) => {
+    dispatch(addItem(item));
+  };
   return (
     <div>
       <div className="carousel__container">
@@ -82,7 +90,9 @@ const Home: React.FC = () => {
               <img src={offer.url} className="offer__product__image" />
               <p className="offer__title">{offer.title}</p>
               <p className="offer__desc">{offer.description}</p>
-              <button>Add to Cart</button>
+              <button onClick={() => handleAddtoCart(offer)}>
+                Add to Cart
+              </button>
             </div>
           ))}
         </div>

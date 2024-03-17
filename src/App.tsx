@@ -1,17 +1,20 @@
 import React from "react";
 import "./App.css";
-import Home from "./pages/home/page";
+import Home from "./pages/home/Home";
 import Navbar from "./components/navbar/Navbar";
-import Category from "./pages/category/Page";
-import Cart from "./pages/cart/Page";
-import Login from "./pages/login/Page";
-import Orders from "./pages/orders/Page";
+import Category from "./pages/category/Category";
+import Cart from "./pages/cart/Cart";
+import Login from "./pages/login/Login";
+import Orders from "./pages/orders/Orders";
 import { Routes, Route } from "react-router-dom";
 import Client from "./layout/Client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route element={<Client />}>
           <Route path="/" element={<Home />} />

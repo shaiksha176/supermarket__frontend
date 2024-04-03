@@ -90,7 +90,7 @@ export const orderSlice = createSlice({
         state.status = "loading";
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        console.log("order created successfully");
+      console.log("order created successfully");
         state.status = "succeeded";
         state.orders = action.payload;
       })

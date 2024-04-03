@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export type User = {
   user: any;
@@ -58,6 +59,11 @@ export const login = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       console.log(error);
+      if (error?.response?.data?.message) {
+        toast.error(`${error.response.data.message}`);
+      } else {
+        toast.error("Login  failed!");
+      }
       throw new Error(error.response?.data?.message || "Failed to log in");
     }
   },
@@ -119,5 +125,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset,logout } = authSlice.actions;
+export const { reset, logout } = authSlice.actions;
 export default authSlice.reducer;

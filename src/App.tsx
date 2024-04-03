@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import Client from "./layout/Client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Signup from "./pages/register/Signup";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Route path="/orders" element={<Orders />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
       </Routes>
     </>
   );

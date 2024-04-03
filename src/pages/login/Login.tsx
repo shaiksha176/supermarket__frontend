@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import "./Page.css";
+import "./Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -58,7 +58,7 @@ const Login: React.FC = () => {
     <div className="login__container">
       <div className="login__inputs">
         <div>
-          <h1>Log In / Sign Up</h1>
+          <h1>Log In</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label>Email</label>
@@ -79,35 +79,27 @@ const Login: React.FC = () => {
                 type="password"
                 {...register("password", {
                   required: "Password is required",
-                  // minLength: {
-                  //   value: 6,
-                  //   message: "Password must be at least 6 characters",
-                  // },
-                  // pattern: {
-                  //   value:
-                  //     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-                  //   message:
-                  //     "Password must include one upper case letter, one number, and one special character",
-                  // },
                 })}
               />
               {errors.password && <small>{errors.password.message}</small>}
             </div>
-            <div>
-              <button type="submit" className="login__btn">
-                Login
-              </button>
-            </div>
+            <button type="submit" className="login__btn">
+              Login
+            </button>
           </form>
           <p>OR</p>
-          <button className="google__btn">Sign In with Google</button>
-          <div>{isError && <p>{message}</p>}</div>
-          {/* <div>{isSuccess && <p>Login successfull</p>}</div> */}
-          {/* <div>{isLoading && <p>Logggig in</p>}</div> */}
+          {/* <button className="google__btn">Sign In with Google</button> */}
+          {/* <div>{isError && <p>{message}</p>}</div> */}
+          <button
+            id="login__account__creation"
+            onClick={() => navigate("/register")}
+          >
+            Don't have an account? <span>Sign up for free</span>
+          </button>
         </div>
       </div>
       <div className="login__banner">
-        <h1>Grocery Shopping made easy</h1>
+        <img src={require("../../images/login.jpg")} />
       </div>
     </div>
   );

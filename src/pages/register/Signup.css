@@ -1,56 +1,58 @@
-.login__container {
-  width: 75%;
+.logo {
+  width: 80px;
+}
+
+.signup__container {
+  width: 100%;
+}
+
+.signup__header {
+  padding: 10px;
+}
+
+.signup__container .form__container {
+  width: 70%;
   margin: 0 auto;
   display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 
-.login__inputs {
-  width: 50%;
+.signup__container .form__container h1 {
+  font-family: "Poppins";
+  color: var(--dark-color);
 }
 
-.login__inputs > div {
-  width: 60%;
-  margin: 0 auto;
+.form__container img {
+  width: 500px;
+  display: block;
 }
 
-.login__inputs form div {
+.form__container h1 {
+  font-size: 24px;
+}
+
+.form__container form div {
   display: flex;
   flex-direction: column;
 }
 
-.login__container h1 {
-  font-size: 40px;
-  color: var(--dark-color);
-  font-family: "Poppins", sans-serif;
-}
-
-.login__container label {
+.form__container label {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Poppins;
   margin-bottom: 10px;
   margin-top: 10px;
   color: var(--dark-color);
 }
 
-.login__container input {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #fe1a10;
-  background: #fff;
+.form__container input {
+  padding: 12px;
+  border: 1px solid var(--dark-color);
   color: var(--dark-color);
 }
 
-.login__banner {
-  width: 50%;
-  height: 100vh;
-  /* background-color: var(--primary-color); */
-  display: grid;
-  place-items: center;
-}
-
-.login__btn {
+.signup__btn {
   color: #fff;
   font-family: Poppins;
   font-size: 16px;
@@ -65,45 +67,18 @@
   padding: 8px 20px;
 }
 
-p {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.google__btn {
-  width: 100%;
-  color: var(--primary-color);
-  text-align: center;
-  font-family: Poppins;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  background-color: #fff;
-  border: 2px solid var(--primary-color);
-  padding: 10px 16px;
-  border-radius: 4px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-#login__account__creation {
+#signup__helper__text {
   font-size: 16px;
   cursor: pointer;
   color: var(--dark-color);
   background-color: transparent;
   border: none;
+  font-family: "Poppins";
 }
 
-#login__account__creation span {
+#signup__helper__text span {
   color: var(--primary-color);
   font-weight: 700;
-}
-.logo {
-  width: 80px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
 }
 
 @media screen and (max-width: 768px) {

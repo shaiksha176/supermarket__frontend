@@ -13,6 +13,7 @@ export type User = {
 type RegisterCredentials = {
   username: string;
   password: string;
+  email: string;
   // Add any other fields as needed
 };
 
@@ -35,15 +36,22 @@ const initialState: User = {
 export const register = createAsyncThunk(
   "auth/register",
   async (credentials: RegisterCredentials) => {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          id: Math.random().toString(),
-          ...credentials,
-        });
-      }, 5000);
-    });
-    return promise;
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/auth/register",
+        credentials,
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+      if (error?.response?.data?.message) {
+        toast.error(`${error.response.data.message}`);
+      } else {
+        toast.error("Registration  failed!");
+      }
+      throw new Error(error.response?.data?.message || "Failed to log in");
+    }
   },
 );
 

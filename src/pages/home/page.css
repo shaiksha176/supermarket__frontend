@@ -17,15 +17,13 @@
   /* border: 1px solid black; */
 }
 
-#carousel__title {
+.carousel__title {
   color: #fe1a10;
   text-align: left;
   font-family: Rampart One;
-  font-size: 118px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 50%;
   /* border: 1px solid red; */
 }
 

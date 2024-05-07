@@ -38,7 +38,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/cart");
+      navigate("/");
     }
     // dispatch(reset());
   }, [isSuccess, dispatch]);

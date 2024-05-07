@@ -12,19 +12,32 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { toast } from "react-toastify";
 import { Order, createOrder } from "../../redux/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
-
+import {
+  Stack,
+  Table,
+  TableCell,
+  TableHead,
+  Typography,
+  TableRow,
+  TableBody,
+  Paper,
+} from "@mui/material";
+import { FONT_FAMILIES } from "../../utils/constants";
+import { jwtDecode } from "jwt-decode";
 const Cart = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isSuccess);
+  const user = useSelector((state: any) => state.auth.user);
+
   const calculateSubtotal = (cartItems: any) => {
-    const total = cartItems.reduce(
-      (total: number, item: any) =>
-        total + item.price["$numberDecimal"] * item.quantity,
-      0,
-    );
-    return total;
+    // const total = cartItems.reduce(
+    //   (total: number, item: any) => total + item.price * item.quantity,
+    //   0,
+    // );
+    // return total;
+    return 0;
   };
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -52,16 +65,16 @@ const Cart = () => {
       return cartItems.map((item: any) => ({
         product: item._id,
         quantity: item.quantity,
-        price: item.price["$numberDecimal"],
+        price: item.price,
       }));
     };
-
+    const customerData = jwtDecode<any>(user.token);
+    const customerId = customerData.customerId;
     const order: Order = {
-      customer: "65b4dd1bc9cb161bb13ddfe4",
+      customer: customerId,
       items: transformCartItemsToOrderFormat(),
       totalAmount: cartItems.reduce(
-        (total, item: any) =>
-          total + item.quantity * Number(item.price["$numberDecimal"]),
+        (total, item: any) => total + item.quantity * parseInt(item.price),
         0,
       ),
       address: {
@@ -80,95 +93,61 @@ const Cart = () => {
 
   if (!cartItems.length) {
     return (
-      <div className="container empty__cart__container">
-        <p>
-          Your shopping cart is empty! Please add some items to your cart before
-          proceeding with checkout
-        </p>
+      <Stack direction="column" alignItems="center" sx={{ my: 10 }}>
+        <Typography
+          variant="h6"
+          sx={{ fontFamily: FONT_FAMILIES.BEBASE_NEUE, fontSize: "40px" }}
+        >
+          Your shopping cart is empty!
+        </Typography>
         <img
           src={require("../../images/empty-cart.png")}
           className="empty__cart__image"
         />
-      </div>
+      </Stack>
     );
   }
 
   return (
-    <div className="container cart__container">
-      <table className="cart__list">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-        </thead>
-        {/* <tbody>
-          <tr>
-            <td>
-              <div className="cart__item">
-                <img
-                  src={require("../../images/ginger.png")}
-                  className="cart__image"
-                />
-                <p>Fresh Ginger, 100g</p>
-              </div>
-            </td>
-            <td>
-              <div className="qty">
-                <div className="inc__dec__btn">-</div>
-                <p>1</p>
-                <div className="inc__dec__btn">+</div>
-              </div>
-            </td>
-            <td>100</td>
-            <td>200</td>
-            <td className="last__item">
-              <p>X</p>
-              <p>Remove</p>
-            </td>{" "}
-          </tr>
-          <tr>
-            <td>
-              <div className="cart__item">
-                <img
-                  src={require("../../images/ginger.png")}
-                  className="cart__image"
-                />
-                <p>Fresh Ginger, 100g</p>
-              </div>
-            </td>
-            <td>
-              <div className="qty">
-                <div className="inc__dec__btn">-</div>
-                <p>1</p>
-                <div className="inc__dec__btn">+</div>
-              </div>
-            </td>
-            <td>100</td>
-            <td>200</td>
-            <td className="last__item">
-              <p>X</p>
-              <p>Remove</p>
-            </td>
-          </tr>
-        </tbody> */}
-        <tbody>
-          {cartItems.map((item: any) => (
-            <tr key={item.id}>
-              <td>
+    <Paper
+      sx={{
+        width: "80%",
+        margin: "0 auto",
+        padding: "24px",
+        background: "#f0f0f0",
+      }}
+      elevation={1}
+    >
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Image</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="center">Quantity</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {cartItems?.map((item: any) => (
+            <TableRow key={item.id}>
+              <TableCell>
                 <div className="cart__item">
                   <img
                     src={item.imageURL}
-                    className="cart__image"
                     alt={item.name}
+                    style={{
+                      height: "50px",
+                      width: "50px",
+                      borderRadius: "50%",
+                    }}
                   />
-                  <p>{item.name}</p>
                 </div>
-              </td>
-              <td>
+              </TableCell>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>
                 <div className="qty">
                   <div
                     className="inc__dec__btn"
@@ -184,61 +163,30 @@ const Cart = () => {
                     +
                   </div>
                 </div>
-              </td>
-              <td>{item.price["$numberDecimal"]}</td>
-              <td>
-                {Math.round(
-                  Number(item.price["$numberDecimal"] * item.quantity),
-                )}
-              </td>
-              <td className="last__item">
+              </TableCell>
+              <TableCell>{item.price}</TableCell>
+              <TableCell>{parseInt(item.price) * item.quantity}</TableCell>
+              <TableCell className="last__item">
                 <p onClick={() => handleRemoveItem(item._id)}>X</p>
                 <p onClick={() => handleRemoveItem(item._id)}>Remove</p>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-      {/* <div id="cart__update__container">
-        <table>
-          <tr>
-            <td>Subtotal</td>
-            <td>$400.00</td>
-          </tr>
-          <tr>
-            <td>Delivery Fee</td>
-            <td>400</td>
-          </tr>
-          <tr>
-            <td>Grand Total</td>
-            <td>400</td>
-          </tr>
-        </table>
-        <button className="place__order__btn">Place Order</button>
-      </div> */}
+        </TableBody>
+      </Table>
+
       {cartItems.length > 0 && (
         <div id="cart__update__container">
-          <table>
-            <tr>
-              <td>Subtotal</td>
-              <td>${calculateSubtotal(cartItems).toFixed(2)}</td>
-            </tr>
-            <tr>
-              <td>Delivery Fee</td>
-              <td>400</td>
-            </tr>
-            <tr>
-              <td>Grand Total</td>
-              <td>${calculateSubtotal(cartItems) + 400}</td>
-            </tr>
-          </table>
           <button className="place__order__btn" onClick={handleOrderCreation}>
             Place Order
           </button>
-          {/* <button onClick={handleClearCart}>Clear Cart</button> */}
         </div>
       )}
-    </div>
+      <br />
+      <br />
+      <br />
+      <br />
+    </Paper>
   );
 };
 

@@ -93,6 +93,7 @@ p {
   color: var(--dark-color);
   background-color: transparent;
   border: none;
+  font-family: "Poppins";
 }
 
 #login__account__creation span {

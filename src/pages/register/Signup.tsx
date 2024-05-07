@@ -12,6 +12,7 @@ import {
 type FormData = {
   email: string;
   password: string;
+  username: string;
 };
 
 const Signup: React.FC = () => {
@@ -24,7 +25,6 @@ const Signup: React.FC = () => {
   const { isError, isLoading, isSuccess, message } = useSelector(
     (state: any) => state.auth,
   );
-  console.table({ isError, isLoading, isSuccess, message });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { isLoading, isError, isSuccess, message, user } = useSelector(
@@ -32,8 +32,8 @@ const Signup: React.FC = () => {
   // );
   const onSubmit = (data: FormData) => {
     console.log("Submitted Data:", data);
-    console.log("Form Errors:", errors);
-    dispatch(login(data) as any);
+    // console.log("Form Errors:", errors);
+    dispatch(authRegister(data) as any);
   };
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Signup: React.FC = () => {
       <div className="signup__header">
         <img src={require("../../images/logo.png")} className="logo" />
       </div>
-      <div className="form__container">
+      <div className="form__container" style={{ marginTop: "100px" }}>
         <div>
           <h1>Create Account</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,11 +70,25 @@ const Signup: React.FC = () => {
                   required: "email is required",
                   minLength: {
                     value: 6,
-                    message: "Username must be at least 6 characters",
+                    message: "Email must be at least 6 characters",
                   },
                 })}
               />
               {errors.email && <small>{errors.email.message}</small>}
+            </div>
+            <div>
+              <label>Username</label>
+              <input
+                type="text"
+                {...register("username", {
+                  required: "Username is required",
+                  minLength: {
+                    value: 6,
+                    message: "Username must be at least 6 characters",
+                  },
+                })}
+              />
+              {errors.username && <small>{errors.username.message}</small>}
             </div>
             <div>
               <label>Password</label>
@@ -92,10 +106,7 @@ const Signup: React.FC = () => {
           </form>
           <p>OR</p>
 
-          <button
-            id="signup__helper__text"
-            onClick={() => navigate("/login")}
-          >
+          <button id="signup__helper__text" onClick={() => navigate("/login")}>
             Already have an account? <span>Login here</span>
           </button>
         </div>

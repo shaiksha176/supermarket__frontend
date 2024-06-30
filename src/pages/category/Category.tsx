@@ -17,16 +17,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Offer, Product, Rating } from "../../utils/types";
 
-// Define the structure of Offer type
-
-type Offer = {
-  url: string;
-  title: string;
-  description: string;
-  cost: number;
-  id: number | string;
-};
 
 type Category = {
   _id: string;
@@ -35,23 +27,7 @@ type Category = {
   __v?: number;
 };
 
-type Rating = {
-  // Define properties for the rating object if any
-};
 
-type Product = {
-  category: Category;
-  createdAt?: string;
-  description?: string;
-  imageURL: string;
-  manufacturer?: string;
-  name: string;
-  price: string;
-  quantityInStock: number;
-  ratings?: Rating[];
-  __v?: number;
-  _id: string;
-};
 
 type CartItem = {
   _id: any;

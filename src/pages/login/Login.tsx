@@ -10,11 +10,12 @@ import {
 } from "../../redux/features/auth/authSlice";
 import { Box, Button, Typography } from "@mui/material";
 import { AppDispatch, RootState } from "../../redux/store";
+import { FormData } from "../../utils/types";
 
-type FormData = {
-  email: string;
-  password: string;
-};
+// type FormData = {
+//   email: string;
+//   password: string;
+// };
 
 const Login: React.FC = () => {
   const {

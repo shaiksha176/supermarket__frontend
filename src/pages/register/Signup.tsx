@@ -11,6 +11,7 @@ import {
 } from "../../redux/features/auth/authSlice";
 import { Box, Typography } from "@mui/material";
 import { RootState } from "../../redux/store";
+
 type FormData = {
   email: string;
   password: string;
@@ -25,7 +26,7 @@ const Signup: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
   const { isError, isLoading, isSuccess, message } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();

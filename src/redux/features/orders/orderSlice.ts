@@ -2,35 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { clearCart } from "../cart/cartSlice";
 import { API_URL } from "../../../utils/constants";
-
-// Define the order interface
-export interface Order {
-  customer: number | string;
-  items: {
-    product: number | string;
-    quantity: number;
-    price: number;
-  }[];
-  totalAmount: number;
-  status: "Pending" | "Shipped" | "Delivered";
-  address: {
-    street?: string;
-    city: string;
-    postalCode?: string;
-    state?: string;
-  };
-  paymentDetails: {
-    paymentMethod: string;
-  };
-}
-
-// Define the order state interface
-interface OrderState {
-  orders: Order[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-  hasFetched: boolean;
-}
+import { Order, OrderState } from "../../../utils/types";
 
 // Define the initial state
 const initialState: OrderState = {
@@ -54,15 +26,12 @@ export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async (data: Order) => {
     try {
-      const response = await axios.post(
-        `${API_URL}/orders`,
-        data,
-      ); // Replace with your API endpoint
+      const response = await axios.post(`${API_URL}/orders`, data); // Replace with your API endpoint
       return response.data;
     } catch (error) {
       throw new Error("Failed to create order");
     }
-  },
+  }
 );
 
 // Create the order slice
@@ -81,7 +50,7 @@ export const orderSlice = createSlice({
           state.status = "succeeded";
           state.orders = action.payload;
           state.hasFetched = true;
-        },
+        }
       )
       .addCase(fetchOrders.rejected, (state, action) => {
         state.status = "failed";
@@ -91,7 +60,7 @@ export const orderSlice = createSlice({
         state.status = "loading";
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-      console.log("order created successfully");
+        console.log("order created successfully");
         state.status = "succeeded";
         state.orders = action.payload;
       })

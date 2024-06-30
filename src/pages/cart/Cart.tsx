@@ -10,7 +10,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { toast } from "react-toastify";
-import { Order, createOrder } from "../../redux/features/orders/orderSlice";
+import { createOrder } from "../../redux/features/orders/orderSlice";
+
 import { useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -22,17 +23,9 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-import { FONT_FAMILIES } from "../../utils/constants";
+import { API_URL, FONT_FAMILIES } from "../../utils/constants";
 import { jwtDecode } from "jwt-decode";
-
-// Type for CartItem
-type CartItem = {
-  _id: string;
-  name: string;
-  imageURL: string;
-  price: string;
-  quantity: number;
-};
+import { Order, CartItem } from "../../utils/types";
 
 const Cart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

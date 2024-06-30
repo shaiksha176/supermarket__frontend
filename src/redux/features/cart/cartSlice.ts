@@ -20,6 +20,7 @@ const initialState: CartState = {
 // Load cart from local storage
 const loadCartFromLocalStorage = (): CartState => {
   const savedCart = localStorage.getItem("cart");
+  
   return savedCart ? JSON.parse(savedCart) : initialState;
 };
 const saveCartToLocalStorage = (cart: CartState) => {
@@ -38,7 +39,7 @@ export const cartSlice = createSlice({
       );
       console.log({ existingItem });
       if (existingItem && existingItem.quantity >= 5) {
-        toast("Cannot add more than 5 items of the same product 🤔");
+        toast.error("Cannot add more than 5 items of the same product 🤔");
       } else {
         const updatedItems = existingItem
           ? state.items.map((item) =>
@@ -52,7 +53,7 @@ export const cartSlice = createSlice({
 
         // Save cart to local storage after modification
         localStorage.setItem("cart", JSON.stringify(updatedState));
-        toast("Added to cart ✔");
+        toast.success("Added to cart ✔");
 
         // Return the updated state
         return updatedState;
@@ -79,7 +80,7 @@ export const cartSlice = createSlice({
       }
       if (itemToIncrement?.quantity >= 5) {
         // alert("This product is only available in quantities of up to 5");
-        toast("This product is only available in quantities of up to 5 🤔");
+        toast.info("This product is only available in quantities of up to 5 🤔");
         return;
       }
       itemToIncrement.quantity += 1;

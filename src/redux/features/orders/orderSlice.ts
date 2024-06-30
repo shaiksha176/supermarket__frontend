@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { clearCart } from "../cart/cartSlice";
+import { API_URL } from "../../../utils/constants";
 
 // Define the order interface
 export interface Order {
@@ -42,7 +43,7 @@ const initialState: OrderState = {
 // Define the asynchronous thunk to fetch orders from the API
 export const fetchOrders = createAsyncThunk("orders/fetchOrders", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/api/orders"); // Replace with your API endpoint
+    const response = await axios.get(`${API_URL}/orders`); // Replace with your API endpoint
     return response.data as Order[];
   } catch (error) {
     throw new Error("Failed to fetch orders");
@@ -54,7 +55,7 @@ export const createOrder = createAsyncThunk(
   async (data: Order) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/orders",
+        `${API_URL}/orders`,
         data,
       ); // Replace with your API endpoint
       return response.data;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "../../../utils/constants";
 
 // Define the product interface
 interface Product {
@@ -30,16 +31,28 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/products");
+      const response = await axios.get(`${API_URL}/products`);
       return response.data as Product[];
     } catch (error) {
       throw new Error("Failed to fetch products");
     }
-  },
+  }
 );
 
-
-
+// Thunk with parameter
+export const fetchCategoryBasedProducts = createAsyncThunk(
+  "products/fetchCategoryBasedProducts",
+  async (categoryId: string, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/products/category/${categoryId}`
+      );
+      return response.data as Product[];
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to fetch products");
+    }
+  }
+);
 // Create the product slice
 export const productSlice = createSlice({
   name: "products",
@@ -56,11 +69,27 @@ export const productSlice = createSlice({
           state.status = "succeeded";
           state.products = action.payload;
           state.hasFetched = true;
-        },
+        }
       )
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? "Failed to fetch products";
+      })
+      // Handle fetchCategoryBasedProducts actions
+      .addCase(fetchCategoryBasedProducts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        fetchCategoryBasedProducts.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = "succeeded";
+          state.products = action.payload;
+          state.hasFetched = true;
+        }
+      )
+      .addCase(fetchCategoryBasedProducts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
       });
   },
 });

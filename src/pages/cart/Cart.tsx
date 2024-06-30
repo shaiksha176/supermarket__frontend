@@ -24,41 +24,58 @@ import {
 } from "@mui/material";
 import { FONT_FAMILIES } from "../../utils/constants";
 import { jwtDecode } from "jwt-decode";
-const Cart = () => {
+
+// Type for CartItem
+type CartItem = {
+  _id: string;
+  name: string;
+  imageURL: string;
+  price: string;
+  quantity: number;
+};
+
+const Cart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isSuccess);
   const user = useSelector((state: any) => state.auth.user);
 
-  const calculateSubtotal = (cartItems: any) => {
-    // const total = cartItems.reduce(
-    //   (total: number, item: any) => total + item.price * item.quantity,
-    //   0,
-    // );
-    // return total;
-    return 0;
-  };
+  // Calculate subtotal for cart items
+  // const calculateSubtotal = (cartItems: CartItem) => {
+  //   // const total = cartItems.reduce(
+  //   //   (total: number, item: any) => total + item.price * item.quantity,
+  //   //   0,
+  //   // );
+  //   // return total;
+  //   return 0;
+  // };
+
+  // Clear the cart
   const handleClearCart = () => {
     dispatch(clearCart());
   };
 
+  // Remove item from the cart
   const handleRemoveItem = (id: number) => {
     dispatch(removeItem(id));
   };
 
+  // Increment item quantity in the cart
   const handleIncrementItem = (id: number) => {
     console.log(id);
     dispatch(incrementQuantity(id));
   };
 
+  // Decrement item quantity in the cart
   const handleDecrementItem = (id: number) => {
     dispatch(decrementQuantity(id));
   };
 
+  // Create an order from the cart items
   const handleOrderCreation = () => {
     if (!isLoggedIn) {
-      toast("Please login");
+      toast.info("Please login");
       return navigate("/login");
     }
     const transformCartItemsToOrderFormat = () => {
@@ -68,14 +85,14 @@ const Cart = () => {
         price: item.price,
       }));
     };
-    const customerData = jwtDecode<any>(user.token);
+    const customerData = jwtDecode<{ customerId: string }>(user.token);
     const customerId = customerData.customerId;
     const order: Order = {
       customer: customerId,
       items: transformCartItemsToOrderFormat(),
       totalAmount: cartItems.reduce(
         (total, item: any) => total + item.quantity * parseInt(item.price),
-        0,
+        0
       ),
       address: {
         city: "New York",
@@ -90,6 +107,8 @@ const Cart = () => {
     dispatch(createOrder(order));
     dispatch(clearCart());
   };
+
+  // Render empty cart message if no items
 
   if (!cartItems.length) {
     return (
@@ -109,15 +128,7 @@ const Cart = () => {
   }
 
   return (
-    <Paper
-      sx={{
-        width: "80%",
-        margin: "0 auto",
-        padding: "24px",
-        background: "#f0f0f0",
-      }}
-      elevation={1}
-    >
+    <Paper className="cart__container" elevation={0}>
       <Table>
         <TableHead>
           <TableRow>
@@ -131,18 +142,14 @@ const Cart = () => {
         </TableHead>
 
         <TableBody>
-          {cartItems?.map((item: any) => (
-            <TableRow key={item.id}>
+          {cartItems?.map((item: any, index) => (
+            <TableRow key={index}>
               <TableCell>
                 <div className="cart__item">
                   <img
                     src={item.imageURL}
                     alt={item.name}
-                    style={{
-                      height: "50px",
-                      width: "50px",
-                      borderRadius: "50%",
-                    }}
+                    className="cart__image"
                   />
                 </div>
               </TableCell>
@@ -175,13 +182,14 @@ const Cart = () => {
         </TableBody>
       </Table>
 
-      {cartItems.length > 0 && (
+      {cartItems?.length > 0 && (
         <div id="cart__update__container">
           <button className="place__order__btn" onClick={handleOrderCreation}>
             Place Order
           </button>
         </div>
       )}
+      <br />
       <br />
       <br />
       <br />

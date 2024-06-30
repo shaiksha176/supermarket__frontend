@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Supermarket App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Supermarket App is a web application built using React, TypeScript, and Redux, designed to facilitate online shopping and vendor management within a supermarket setting. This README provides an overview of the app's current features and outlines planned enhancements.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Customer Features
 
-### `npm start`
+- **Shopping Cart Management:**
+  - Add, remove, and update items in the shopping cart.
+  - Calculate subtotal and total amounts dynamically.
+  - Proceed to checkout and place orders securely.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Order Tracking:**
+  - View past orders and their details.
+  - Track order status and delivery information.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### General Features
 
-### `npm run build`
+- **Authentication and Authorization:**
+  - Secure login and registration functionality using JWT tokens.
+  - Role-based access control for Customers, Vendors and Admin.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Responsive UI Design:**
+  - Mobile-friendly layout ensuring a seamless user experience across devices.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Planned Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Vendor Dashboard Expansion
 
-### `npm run eject`
+- **Product Management:**
+  - Add new products, update existing ones, and manage inventory levels.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Analytics Dashboard:**
+  - Generate sales reports, track popular products, and monitor revenue trends.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Delivery System Integration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Real-time Order Tracking:**
+  - Implement live tracking for orders in transit.
+  - Provide notifications to customers on order status changes.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### CI/CD Pipeline Implementation
 
-## Learn More
+- **Continuous Integration with Jenkins:**
+  - Automate build, test, and deployment processes.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Deployment with AWS and Kubernetes:**
+  - Containerize application components using Docker.
+  - Deploy to Kubernetes clusters on AWS for scalability and reliability.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technologies Used
+
+- **Frontend:**
+  - React
+  - TypeScript
+  - Redux for state management
+  - React Router for navigation
+
+- **Backend:**
+  - Node.js with Express for API development
+  - MongoDB for data storage
+  - AWS for deployment and storage
+
+- **CI/CD and Deployment:**
+  - Jenkins for continuous integration
+  - AWS (Amazon Web Services) for cloud hosting
+  - Kubernetes for container orchestration
+
+

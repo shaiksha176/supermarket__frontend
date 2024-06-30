@@ -2,61 +2,36 @@ import React, { useEffect, useState } from "react";
 import "./Page.css";
 import axios from "axios";
 import { Box, Button, Stack, Typography, Grid } from "@mui/material";
-import { COLORS, FONT_FAMILIES } from "../../utils/constants";
+import { API_URL, COLORS, FONT_FAMILIES } from "../../utils/constants";
 import { useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+import moment from "moment";
+import { RootState } from "../../redux/store";
+
+function formatDate(inputDate: any) {
+  // Parse the date string
+  const parsedDate = moment(inputDate, moment.ISO_8601, true);
+
+  // Check if the parsed date is valid
+  if (parsedDate.isValid()) {
+    // Format the date in the desired format
+    return parsedDate.format("hh:mm A, DD MMM, YYYY");
+  } else {
+    return "invalid";
+  }
+}
+
 const Banner = () => {
   return (
     <Grid container>
       <Grid item sm={12}>
-        <div style={{ position: "relative" }}>
+        <Box className="banner__container">
           {/* Semi-transparent overlay */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust opacity (0.5 for example) for the dim effect
-            }}
-          ></div>
+          <Box className="banner__background"></Box>
 
-          {/* Main text - "Brand Fiesta" */}
-          <p
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 1,
-              color: "#fff",
-              fontSize: "90px",
-              fontWeight: "bold",
-              opacity: 0.8,
-              fontFamily: "Bebas Neue, sans-serif",
-            }}
-          >
-            SERVING 2000000 + PEOPLE A YEAR
-          </p>
+          <p className="banner__title">SERVING 2000000 + PEOPLE A YEAR</p>
 
-          {/* Subtitle - "Top Brands, Top Choices" */}
-          <p
-            style={{
-              position: "absolute",
-              top: "calc(50% + 150px)", // Adjust the distance below the main text
-
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 1,
-              color: "#fff",
-              fontSize: "30px",
-              opacity: 0.8,
-              fontFamily: "Bebas Neue, sans-serif",
-            }}
-          >
-            Orders delivered on time!
-          </p>
+          <p className="banner__subtitle">Orders delivered on time!</p>
 
           {/* Image */}
           <img
@@ -64,17 +39,18 @@ const Banner = () => {
             style={{ height: "500px", objectFit: "cover" }}
             alt="Banner"
           />
-        </div>
+        </Box>
       </Grid>
     </Grid>
   );
 };
-const Orders = () => {
+const Orders: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
+
   useEffect(() => {
     const fetchCustomerOrders = async () => {
       console.log(jwtDecode(user.token));
@@ -82,7 +58,7 @@ const Orders = () => {
       const customerId = customerData.customerId;
       try {
         const { data } = await axios.get(
-          `http://localhost:8000/api/orders/customer/${customerId}`,
+          `${API_URL}/orders/customer/${customerId}`
         );
         console.log(data);
         setOrders(data);
@@ -101,15 +77,7 @@ const Orders = () => {
       <Banner />
       <br />
       <br />
-      <Typography
-        gutterBottom
-        sx={{
-          fontWeight: 700,
-          color: "green",
-          fontSize: "50px",
-          fontFamily: "Ananda Black, sans-serif",
-        }}
-      >
+      <Typography gutterBottom className="orders__header">
         Your Orders
       </Typography>
       <Box>
@@ -126,95 +94,13 @@ const Orders = () => {
                     gap={2}
                     sx={{ background: COLORS.PRIMARY_COLOR, padding: "10px" }}
                   >
-                    <Box>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#e3c2c1",
-                          fontSize: "14px",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        Order Placed
-                      </Typography>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#eae2e2",
-                          fontWeight: "700",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        {/* {order.orderDate} */}
-                        24 Mar
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#e3c2c1",
-                          fontSize: "14px",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        Total
-                      </Typography>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#eae2e2",
-                          fontWeight: "700",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        {order.totalAmount}
-                      </Typography>
-                    </Box>
-                    <Box flex={1}>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#e3c2c1",
-                          fontSize: "14px",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        Status
-                      </Typography>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#eae2e2",
-                          fontWeight: "700",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        {order.status}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#e3c2c1",
-                          fontSize: "14px",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        Order ID
-                      </Typography>
-                      <Typography
-                        sx={{
-                          textAlign: "left",
-                          color: "#eae2e2",
-                          fontWeight: "700",
-                          fontFamily: FONT_FAMILIES.POPPINS,
-                        }}
-                      >
-                        {order._id}
-                      </Typography>
-                    </Box>
+                    <OrderDetail
+                      label="Order Placed"
+                      value={formatDate(order.orderDate)}
+                    />
+                    <OrderDetail label="Total" value={order.totalAmount} />
+                    <OrderDetail label="Status" value={order.status} flex={1} />
+                    <OrderDetail label="Order ID" value={order._id} />
                   </Stack>
 
                   <div className="order__items">
@@ -222,7 +108,13 @@ const Orders = () => {
                       {order.items.map((item: any) => (
                         <img
                           src={item.product.imageURL}
-                          className="ordered__item"
+                          // className="ordered__item"
+                          style={{
+                            objectFit: "cover",
+                            height: "50px",
+                            width: "50px",
+                            borderRadius: "50%",
+                          }}
                         />
                       ))}
                     </div>
@@ -248,5 +140,34 @@ const Orders = () => {
     </Box>
   );
 };
+
+const OrderDetail: React.FC<{
+  label: string;
+  value: string | number;
+  flex?: number;
+}> = ({ label, value, flex }) => (
+  <Box flex={flex}>
+    <Typography
+      sx={{
+        textAlign: "left",
+        color: "#e3c2c1",
+        fontSize: "14px",
+        fontFamily: FONT_FAMILIES.POPPINS,
+      }}
+    >
+      {label}
+    </Typography>
+    <Typography
+      sx={{
+        textAlign: "left",
+        color: "#eae2e2",
+        fontWeight: "700",
+        fontFamily: FONT_FAMILIES.POPPINS,
+      }}
+    >
+      {value}
+    </Typography>
+  </Box>
+);
 
 export default Orders;

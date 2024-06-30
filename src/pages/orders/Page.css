@@ -82,3 +82,48 @@ h2 {
   border-radius: 4px;
   margin-top: 20px;
 }
+
+.banner__container {
+  position: relative;
+}
+
+.banner__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: #fff;
+  font-size: 90px;
+  font-weight: bold;
+  opacity: 0.8;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.banner__subtitle {
+  position: absolute;
+  top: calc(50% + 150px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: #fff;
+  font-size: 30px;
+  opacity: 0.8;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.orders__header {
+  color: green;
+  font-size: 50px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 700;
+}

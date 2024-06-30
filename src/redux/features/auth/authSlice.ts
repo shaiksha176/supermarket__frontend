@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { API_URL } from "../../../utils/constants";
 
 export type User = {
   user: any;
@@ -38,8 +39,8 @@ export const register = createAsyncThunk(
   async (credentials: RegisterCredentials) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/register",
-        credentials,
+        `${API_URL}/auth/register`,
+        credentials
       );
       console.log(response.data);
       return response.data;
@@ -52,17 +53,14 @@ export const register = createAsyncThunk(
       }
       throw new Error(error.response?.data?.message || "Failed to log in");
     }
-  },
+  }
 );
 
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials: LoginCredentials) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        credentials,
-      );
+      const response = await axios.post(`${API_URL}/auth/login`, credentials);
       console.log(response.data);
       return response.data;
     } catch (error: any) {
@@ -74,7 +72,7 @@ export const login = createAsyncThunk(
       }
       throw new Error(error.response?.data?.message || "Failed to log in");
     }
-  },
+  }
 );
 
 export const authSlice = createSlice({

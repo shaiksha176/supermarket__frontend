@@ -1,7 +1,11 @@
 .cart__container {
-  width: 60%;
+  /* width: 60%;
   margin: 50px auto;
-  overflow-x: auto;
+  overflow-x: auto; */
+  width: 80%;
+  margin: 0 auto 24px auto;
+  padding: 24px;
+  background-color: #f0f0f0;
 }
 
 .empty__cart__container {
@@ -12,7 +16,10 @@
 }
 
 .cart__image {
-  width: 80px;
+  /* width: 80px; */
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
 
 .cart__item {

@@ -9,6 +9,8 @@ import {
   login,
   User,
 } from "../../redux/features/auth/authSlice";
+import { Box, Typography } from "@mui/material";
+import { RootState } from "../../redux/store";
 type FormData = {
   email: string;
   password: string;
@@ -23,7 +25,7 @@ const Signup: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
   const { isError, isLoading, isSuccess, message } = useSelector(
-    (state: any) => state.auth,
+    (state: RootState) => state.auth,
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,15 +57,15 @@ const Signup: React.FC = () => {
   // if (isLoading) return <p>Logging iN...</p>;
 
   return (
-    <div className="signup__container">
-      <div className="signup__header">
+    <Box className="signup__container">
+      <Box className="signup__header">
         <img src={require("../../images/logo.png")} className="logo" />
-      </div>
-      <div className="form__container" style={{ marginTop: "100px" }}>
-        <div>
+      </Box>
+      <Box className="form__container" style={{ marginTop: "100px" }}>
+        <Box>
           <h1>Create Account</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <Box>
               <label>Email</label>
               <input
                 {...register("email", {
@@ -75,8 +77,8 @@ const Signup: React.FC = () => {
                 })}
               />
               {errors.email && <small>{errors.email.message}</small>}
-            </div>
-            <div>
+            </Box>
+            <Box>
               <label>Username</label>
               <input
                 type="text"
@@ -89,8 +91,8 @@ const Signup: React.FC = () => {
                 })}
               />
               {errors.username && <small>{errors.username.message}</small>}
-            </div>
-            <div>
+            </Box>
+            <Box>
               <label>Password</label>
               <input
                 type="password"
@@ -99,7 +101,7 @@ const Signup: React.FC = () => {
                 })}
               />
               {errors.password && <small>{errors.password.message}</small>}
-            </div>
+            </Box>
             <button type="submit" className="signup__btn">
               Sign Up
             </button>
@@ -109,10 +111,10 @@ const Signup: React.FC = () => {
           <button id="signup__helper__text" onClick={() => navigate("/login")}>
             Already have an account? <span>Login here</span>
           </button>
-        </div>
+        </Box>
         <img src={require("../../images/signup-img.png")} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

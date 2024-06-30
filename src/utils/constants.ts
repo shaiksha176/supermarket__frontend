@@ -9,3 +9,5 @@ export const COLORS = {
   BLACK_SHADE: "#28282B",
   PRIMARY_COLOR: "#fe1a10",
 };
+
+export const API_URL = process.env.REACT_APP_API_URL;
